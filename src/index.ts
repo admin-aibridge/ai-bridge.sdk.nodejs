@@ -7,8 +7,8 @@ export class AIBridge extends ApiConnector {
     return new Model(this.apiKey, this.apiSecret, name);
   }
 
-  public dataset(): Dataset {
-    return new Dataset(this.apiKey, this.apiSecret);
+  public dataset(id?: string): Dataset {
+    return new Dataset(this.apiKey, this.apiSecret, id);
   }
 
   public async createDataset(name: string, file: string): Promise<Dataset> {

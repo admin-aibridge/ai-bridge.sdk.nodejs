@@ -1,4 +1,4 @@
-import { AIBridge } from '../src/index';
+import { AIBridge } from '../../src/index';
 
 const init = async () => {
   const aibridge = new AIBridge('ABCDB', 'ABCDB');

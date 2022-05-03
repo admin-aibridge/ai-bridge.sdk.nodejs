@@ -23,12 +23,31 @@ interface CreateDataset {
   file: string;
 }
 
+interface AddItemsResponse {
+  success: boolean;
+}
+
 export class Dataset extends ApiConnector {
   protected name: string;
   protected id: string;
 
-  constructor(apiKey: string, apiSecret: string) {
+  constructor(apiKey: string, apiSecret: string, id?: string) {
     super(apiKey, apiSecret);
+    if (id) {
+      this.id = id;
+    }
+  }
+
+  public async addItems<T>(items: T[]): Promise<AddItemsResponse> {
+    const response = await this.post(`dataset/${this.id}/ingest`, { items });
+
+    const body = await response.json();
+
+    if (response.status === 200) {
+      return body;
+    }
+
+    throw new Error(JSON.stringify(body));
   }
 
   public async create(params: CreateDataset): Promise<Dataset> {

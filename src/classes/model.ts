@@ -1,6 +1,6 @@
 import { ApiConnector } from '../helpers/api-connector';
 
-type PredictResponse = number[];
+type PredictResponse = number[] | string[];
 
 export class Model extends ApiConnector {
   protected name: string;
@@ -13,7 +13,7 @@ export class Model extends ApiConnector {
 
   public async predict<T>(params: T | T[]): Promise<PredictResponse> {
     const inputs = Array.isArray(params) ? params : [params];
-    const response = await this.post(`model/${this.name}/infer`, {
+    const response = await this.post(`model/${this.name}/inference`, {
       inputs,
     });
 
